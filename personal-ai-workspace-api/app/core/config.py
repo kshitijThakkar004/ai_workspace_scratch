@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     environment: Literal["development", "test", "production"] = "development"
     log_level: str = "INFO"
     database_url:str
-    test_database_url=str | None=None
+    test_database_url:str | None=None
 
     model_config = SettingsConfigDict(
         env_file=".env",
