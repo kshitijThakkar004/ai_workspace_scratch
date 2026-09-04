@@ -28,14 +28,14 @@ class WriteSchema(BaseModel):
 
 class NoteCreate(WriteSchema):
     title: NoteTitle
-    content: NoteContent | None
+    content: NoteContent | None = None
 
 class NoteUpdate(WriteSchema):
-    title: NoteTitle | None
-    content: NoteContent | None
-    @model_validator(mode="before")
-    @classmethod
-    def validate_patch_semantics(self)->self:
+    title: NoteTitle | None = None
+    content: NoteContent | None = None
+    @model_validator(mode="after")
+    # @classmethod
+    def validate_patch_semantics(self)->Self:
         if not self.model_fields_set:
             raise ValueError("Provide atleast one filed to update")
         if "title" in self.model_fields_set and self.title is None:
